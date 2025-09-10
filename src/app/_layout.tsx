@@ -30,15 +30,15 @@ export default function RootLayout() {
     return (
         <ThemeProvider>
             <Stack screenOptions={{ headerShown: false }}>
-                {/* <Stack.Protected guard={!hasCompletedOnboarding}>
+                <Stack.Protected guard={!hasCompletedOnboarding}>
                     <Stack.Screen name="onboarding" />
                 </Stack.Protected>
 
                 <Stack.Protected guard={!isLoggedIn && hasCompletedOnboarding}>
                     <Stack.Screen name="(auth)" />
-                </Stack.Protected> */}
+                </Stack.Protected>
 
-                <Stack.Protected guard={true}>
+                <Stack.Protected guard={isLoggedIn}>
                     <Stack.Screen name="(main)" />
                 </Stack.Protected>
             </Stack>
