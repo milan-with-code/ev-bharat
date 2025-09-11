@@ -6,7 +6,7 @@ export default function OnboardingFirstScreen() {
     return (
         <View>
             <ThemedText>Onboarding Screen 1</ThemedText>
-            <Link asChild push href="/onboarding/final">
+            <Link asChild push href="/(onboarding)/final">
                 <Button title="Go To Screen 2" />
             </Link>
         </View>

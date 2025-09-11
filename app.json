@@ -27,7 +27,8 @@
         "monochromeImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.milancode.ev.bharat"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -47,14 +48,9 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-asset"
     ],
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "9da5868e-2f65-4f59-bfa3-a42c735be165"
-      }
-    },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": [
@@ -70,6 +66,12 @@
         "wasm",
         "svg"
       ]
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "69fbca3c-8db8-4814-a9c5-eac02ecef89d"
+      }
     }
   }
 }
