@@ -8,5 +8,6 @@
       "@assets/*": ["assets/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "lib/clerk.js"]
+  "include": ["**/*.ts", "**/*.tsx", "lib/clerk.js"],
+  "exclude": ["node_modules"]
 }

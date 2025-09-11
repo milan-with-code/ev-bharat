@@ -1,14 +1,13 @@
 import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
 export default function Page() {
     return (
-        <ThemedView style={styles.container}>
+        <View style={styles.container}>
             <ThemedText>Open up Wallet.tsx to start working on your app!</ThemedText>
             <StatusBar style="auto" />
-        </ThemedView>
+        </View>
     );
 }
 
