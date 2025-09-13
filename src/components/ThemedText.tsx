@@ -58,7 +58,6 @@ const fontVariantStyles = StyleSheet.create({
     },
     bold: {
         fontFamily: "Outfit_700Bold",
-        fontWeight: "700",
     },
 });
 
@@ -74,9 +73,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
-        fontWeight: "bold",
-        fontFamily: "Outfit_600SemiBold",
-        lineHeight: 32,
+        lineHeight: 40,
     },
     subtitle: {
         fontSize: 20,

@@ -7,18 +7,20 @@ type UserState = {
     isLoggedIn: boolean,
     shouldCreateAccount: boolean
     hasCompletedOnboarding: boolean
+    _hasHydrated: false,
     logIn: () => void
     logOut: () => void
     completedOnboarding: () => void
     resetOnboarding: () => void
+    setHasHydrated: (value: boolean) => void
 }
 
 export const useAuthStore = create(
     persist<UserState>((set) => ({
+        _hasHydrated: false,
         isLoggedIn: false,
         shouldCreateAccount: false,
         hasCompletedOnboarding: false,
-
         logIn: () => {
             set((state) => {
                 return (
@@ -58,13 +60,26 @@ export const useAuthStore = create(
                     }
                 )
             })
-        }
+        },
+        setHasHydrated: (value: boolean) => {
+            set((state: any) => {
+                return {
+                    ...state,
+                    _hasHydrated: value,
+                };
+            });
+        },
     }), {
         "name": "auth-store",
         storage: createJSONStorage(() => ({
             setItem,
             getItem,
             removeItem: deleteItemAsync
-        }))
+        })),
+        onRehydrateStorage(state) {
+            return (state) => {
+                state?.setHasHydrated(true)
+            }
+        },
     })
 )

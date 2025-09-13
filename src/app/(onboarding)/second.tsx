@@ -1,11 +1,11 @@
-import { Image } from "expo-image";
-import { StatusBar, View, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
-import Onboarding from "@assets/Onboarding1.png";
 import { Button } from "@/components/Button";
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import { useAuthStore } from "@/utils/authStore";
+import { Image } from "expo-image";
+import { useRouter } from "expo-router";
+import { StatusBar, StyleSheet, View } from "react-native";
+import Onboarding from "@assets/Onboarding2.png";
 
 export default function Page() {
     const { completedOnboarding } = useAuthStore();
@@ -17,7 +17,7 @@ export default function Page() {
     };
 
     const handleContinue = () => {
-        router.replace("onboarding/second");
+        router.replace("onboarding/final");
     };
 
     return (
@@ -37,17 +37,18 @@ export default function Page() {
             <View style={styles.contentContainer}>
                 <View style={styles.textContainer}>
                     <ThemedText color={Colors.primary} type="title" fontVariant="bold">
-                        Fast & Reliable Charging
+                        Find Parking, Stress-Free
                     </ThemedText>
                     <ThemedText color="white" style={styles.description}>
-                        Get live charging updates, track range, and monitor session with ease.
+                        Discover and reserve safe parking spots at your destination with ease.
                     </ThemedText>
                 </View>
                 <Button title="Continue" variant="touchable" activeOpacity={0.9} onPress={handleContinue} />
             </View>
         </View>
-    );
+    )
 }
+
 
 const styles = StyleSheet.create({
     container: { flex: 1 },

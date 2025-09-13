@@ -31,5 +31,7 @@ export const Colors = {
     alabaster: "#FBFBFB",
     borderColor: "#E6ECEF",
     shark: "#242426",
-    linkView: "#596269"
+    linkView: "#596269",
+    sharkNew: "#1A1C1D",
+    catskillWhite: "#F2F4F8"
 };
