@@ -4,7 +4,6 @@ import { Colors } from "@/constants/Colors";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { StatusBar, StyleSheet, View } from "react-native";
-import FinalOnboarding from "@assets/Onboarding3.png";
 import { useAuthStore } from "@/utils/authStore";
 
 export default function Page() {
@@ -18,7 +17,12 @@ export default function Page() {
 
     return (
         <View style={styles.container}>
-            <Image source={FinalOnboarding} style={styles.backgroundImage} contentFit="cover" />
+            <Image
+                source="https://github.com/milan-with-code/ev-bharat/blob/feature/auth-flow/assets/Onboarding3.png?raw=true"
+                cachePolicy="memory-disk"
+                style={styles.backgroundImage}
+                contentFit="cover"
+            />
             <View style={styles.contentContainer}>
                 <View style={styles.textContainer}>
                     <ThemedText color={Colors.primary} type="title" fontVariant="bold">

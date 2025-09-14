@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
+import { StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
@@ -8,10 +8,11 @@ interface BackButtonType {
     style?: ViewStyle;
     text?: string;
     arrayButton?: boolean,
-    textComponent?: boolean
+    textComponent?: boolean,
+    textStyle?: TextStyle
 }
 
-export default function BackButton({ style, text, textComponent = false, arrayButton = false }: BackButtonType) {
+export default function BackButton({ textStyle, style, text, textComponent = false, arrayButton = false }: BackButtonType) {
     const router = useRouter();
     const canGoBack = router.canGoBack();
 
@@ -28,15 +29,15 @@ export default function BackButton({ style, text, textComponent = false, arrayBu
     );
 
     const TextComponent =
-        <ThemedText type="defaultSemiBold" fontVariant="semiBold" style={{ marginVertical: 16, }}>
+        <ThemedText type="defaultSemiBold" fontVariant="semiBold">
             {text}
         </ThemedText>
 
-    if (textComponent && text) return <View>{TextComponent}</View>;
+    if (textComponent && text) return <View style={[{ paddingVertical: 16, borderBottomColor: Colors.catskillWhite, borderBottomWidth: 1, }, textStyle]}>{TextComponent}</View>;
     if (arrayButton) return ArrowButton;
 
     return (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 8, }}>
             {ArrowButton}
             {TextComponent}
         </View>

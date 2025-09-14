@@ -5,6 +5,8 @@ import {
     PressableProps,
     TouchableOpacityProps,
     StyleSheet,
+    ViewStyle,
+    ActivityIndicator,
 } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { ThemedText } from "./ThemedText";
@@ -14,6 +16,9 @@ type CommonProps = {
     disabled?: boolean;
     variant?: "pressable" | "touchable";
     onPress?: () => void;
+    type?: "normal" | "edit",
+    style?: ViewStyle,
+    isLoading?: boolean
 };
 
 type ButtonProps = CommonProps & PressableProps & TouchableOpacityProps;
@@ -23,28 +28,37 @@ export function Button({
     disabled,
     variant = "pressable",
     onPress,
+    type = "edit",
+    style,
+    isLoading,
     ...rest
 }: ButtonProps) {
     const Component = variant === "touchable" ? TouchableOpacity : Pressable;
+
+    const isDisabled = isLoading || disabled;
 
     return (
         <Component
             onPress={onPress}
             style={[
                 styles.base,
+                type === "normal" && styles.normal,
                 disabled && styles.disabled,
-                (rest as any).style,
+                style
             ]}
-            disabled={disabled}
+            disabled={isDisabled}
             {...rest}
         >
-            <ThemedText
-                fontVariant="regular"
-                type="defaultSemiBold"
-                color="white"
-            >
-                {title}
-            </ThemedText>
+            {
+                isLoading ? <ActivityIndicator size="small" color={type === "normal" ? Colors.primary : "white"} /> :
+                    <ThemedText
+                        fontVariant="regular"
+                        type="defaultSemiBold"
+                        color={type === "normal" ? Colors.primary : "white"}
+                    >
+                        {title}
+                    </ThemedText>
+            }
         </Component>
     );
 }
@@ -56,7 +70,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        paddingVertical: 12,
+        height: 48
+    },
+    normal: {
+        backgroundColor: "transparent"
     },
     disabled: {
         opacity: 0.5,

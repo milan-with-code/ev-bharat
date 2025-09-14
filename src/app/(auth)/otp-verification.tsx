@@ -4,10 +4,12 @@ import ScreenWrapper from "@/components/ScreenWrapper";
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import OTPInput from "@/screen/auth/components/OTPInput";
+import { useAuthStore } from "@/utils/authStore";
 import { useRouter } from "expo-router";
 import { Alert, StyleSheet, View } from "react-native";
 
 export default function Page() {
+    const { logIn } = useAuthStore()
     const router = useRouter();
     const handleOTPComplete = (code: string) => {
         Alert.alert("OTP Entered", code);
@@ -30,7 +32,15 @@ export default function Page() {
                         onComplete={handleOTPComplete}
                         containerStyle={{ marginBottom: 24 }}
                     />
-                    <Button title="Verify" variant="touchable" activeOpacity={0.9} onPress={() => router.push("(auth)/otp-verification")} />
+                    <Button
+                        title="Verify"
+                        variant="touchable"
+                        activeOpacity={0.9}
+                        onPress={() => {
+                            logIn()
+                            router.replace("(setup)/set-location")
+                        }}
+                    />
                 </View>
             </View>
         </ScreenWrapper>

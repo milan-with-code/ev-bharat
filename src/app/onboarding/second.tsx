@@ -5,7 +5,6 @@ import { useAuthStore } from "@/utils/authStore";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { StatusBar, StyleSheet, View } from "react-native";
-import Onboarding from "@assets/Onboarding2.png";
 
 export default function Page() {
     const { completedOnboarding } = useAuthStore();
@@ -22,7 +21,7 @@ export default function Page() {
 
     return (
         <View style={styles.container}>
-            <Image source={Onboarding} style={styles.backgroundImage} contentFit="cover" />
+            <Image source="https://github.com/milan-with-code/ev-bharat/blob/feature/auth-flow/assets/Onboarding2.png?raw=true" style={styles.backgroundImage} cachePolicy="memory-disk" contentFit="cover" />
 
             <View style={styles.skipButtonContainer}>
                 <Button
