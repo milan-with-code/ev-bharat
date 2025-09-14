@@ -41,6 +41,7 @@ export default function Page() {
                     placeholder="Search"
                     value={searchText}
                     onChangeText={setSearchText}
+                    placeholderTextColor={Colors.nutralsBlack}
                 />
 
                 {searchText.length > 0 && (

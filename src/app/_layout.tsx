@@ -4,8 +4,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Outfit_300Light, Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold, Outfit_700Bold, Outfit_800ExtraBold, Outfit_900Black, useFonts as useGoogleFonts } from "@expo-google-fonts/outfit";
-
+import {
+    Outfit_400Regular,
+    Outfit_500Medium,
+    Outfit_600SemiBold,
+    Outfit_700Bold,
+    useFonts as useGoogleFonts
+} from "@expo-google-fonts/outfit";
+import { Ionicons } from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -13,26 +19,29 @@ export default function RootLayout() {
     const { isLoggedIn, hasCompletedOnboarding, _hasHydrated, isLocationSetup } = useAuthStore()
 
     const [googleFontsLoaded, googleError] = useGoogleFonts({
-        Outfit_300Light,
         Outfit_400Regular,
         Outfit_500Medium,
         Outfit_600SemiBold,
         Outfit_700Bold,
-        Outfit_800ExtraBold,
-        Outfit_900Black,
+
     });
 
-    useEffect(() => {
-        console.log("googleFontsLoaded:", googleFontsLoaded, "error:", googleError);
-        if (googleFontsLoaded && _hasHydrated) {
-            console.log('Hiding splash screen');
-            SplashScreen.hide();
-        }
-    }, [googleFontsLoaded, _hasHydrated]);
+    console.log('Available icon fonts:', Object.keys(Ionicons.font));
 
-    if (!_hasHydrated || !googleFontsLoaded) {
+    useEffect(() => {
+        async function hideSplash() {
+            if ((googleFontsLoaded || googleError) && _hasHydrated) {
+                console.log('Fonts ready:', googleFontsLoaded, 'Error:', googleError);
+                await SplashScreen.hideAsync();
+            }
+        }
+        hideSplash();
+    }, [googleFontsLoaded, googleError, _hasHydrated]);
+
+    if (!_hasHydrated || (!googleFontsLoaded && !googleError)) {
         return null;
     }
+
     return (
         <SafeAreaProvider>
             <Stack screenOptions={{ headerShown: false }}>
