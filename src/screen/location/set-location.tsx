@@ -25,7 +25,7 @@ export default function SetLocation() {
     return (
         <ScreenWrapper style={styles.container}>
             <View style={{ marginHorizontal: -16 }}>
-                <BackButton textComponent text="Set Location" textStyle={{ paddingHorizontal: 16 }} />
+                <BackButton textOnly text="Set Location" textStyle={{ paddingHorizontal: 16 }} />
             </View>
 
             <View style={styles.textContainer}>

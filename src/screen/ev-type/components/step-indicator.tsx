@@ -23,19 +23,21 @@ export default function StepIndicator({
                 const isActive = stepNumber === currentStep;
                 const isCompleted = stepNumber < currentStep;
 
+
                 return (
                     <View style={styles.stepWrapper} key={index}>
                         <View
                             style={[
                                 styles.base,
                                 isActive && styles.active,
-                                !isActive && !isCompleted && styles.inactive,
+                                !isCompleted && styles.inactive,
+                                isCompleted && !isActive && { backgroundColor: Colors.catskillWhite, borderRadius: 999 },
                             ]}
                         >
                             {isCompleted ? (
                                 <CheckCircle />
                             ) : (
-                                <ThemedText type="defaultSemiBold" fontVariant="semiBold">
+                                <ThemedText type="defaultSemiBold" fontVariant="semiBold" style={{ color: isActive ? Colors.primary : Colors.nutralsBlack }}>
                                     {stepNumber}
                                 </ThemedText>
                             )}

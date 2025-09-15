@@ -9,12 +9,9 @@ import Hyundai from "@assets/svg/hyundai.svg"
 import Tata from "@assets/svg/tata.svg"
 import Volvo from "@assets/svg/volvo.svg"
 import Ford from "@assets/svg/ford.svg"
-import { SvgProps } from "react-native-svg"
+import { EvType } from "@/types"
 
-export type EvType = {
-    icon: React.FC<SvgProps>;
-    type: string;
-};
+
 export const steps = ["Vehicle Type", "Select Brand", "Select Model"];
 
 export const brandData: EvType[] = [
@@ -62,3 +59,33 @@ export const evTypeData: EvType[] = [
         type: "Eight Wheelers"
     },
 ]
+
+export interface ModalDataType {
+    name: string;
+    connectors: string;
+    kwh: number;
+    range: string;
+    dcFast: string;
+    image: string;
+}
+
+export const modalTypeData = ["Compact SUV", "Luxury SUV", "Luxury Sedan"];
+
+export const modalData: ModalDataType[] = [
+    {
+        name: "BMW i3",
+        connectors: "CCS2",
+        kwh: 75,
+        range: "480 km",
+        dcFast: "30 min",
+        image: "",
+    },
+    {
+        name: "BMW i3",
+        connectors: "CHAdeMO",
+        kwh: 75,
+        range: "480 km",
+        dcFast: "30 min",
+        image: "",
+    },
+];

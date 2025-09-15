@@ -37,6 +37,7 @@ export default function PhoneAuthentication() {
                                 placeholder="Enter mobile number"
                                 keyboardType="phone-pad"
                                 maxLength={10}
+                                placeholderTextColor={Colors.nutralsBlack}
                             />
                         </View>
                     </View>
@@ -50,15 +51,15 @@ export default function PhoneAuthentication() {
                 </View>
 
                 <View style={styles.socialContainer}>
-                    <TouchableOpacity style={styles.socialButton}>
+                    <TouchableOpacity style={styles.socialButton} activeOpacity={0.7}>
                         <Ionicons name="logo-facebook" size={24} color="#1877F2" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.socialButton}>
+                    <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} >
                         <Ionicons name="logo-google" size={24} color="#4285F4" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.socialButton}>
+                    <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} >
                         <Ionicons name="logo-apple" size={24} color="#000" />
                     </TouchableOpacity>
                 </View>
@@ -70,10 +71,10 @@ export default function PhoneAuthentication() {
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        marginTop: 40
+        marginTop: 48
     },
     inputSection: {
-        marginBottom: 32,
+        marginBottom: 48,
     },
     phoneInputWrapper: {
         flexDirection: "row",
@@ -81,6 +82,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.catskillWhite,
         borderRadius: 8,
         paddingHorizontal: 12,
+        borderWidth: 1,
+        borderColor: Colors.borderColor
     },
     phoneIcon: {
         marginRight: 10,
@@ -96,7 +99,6 @@ const styles = StyleSheet.create({
     dividerContainer: {
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 15,
     },
     dividerLine: {
         flex: 1,
@@ -110,6 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         gap: 24,
         paddingVertical: 24,
+        marginTop: 23
     },
     socialButton: {
         width: 88,

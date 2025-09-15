@@ -32,7 +32,7 @@ export default function Page() {
     const [searchText, setSearchText] = useState("");
     return (
         <ScreenWrapper>
-            <BackButton text="Add Location" />
+            <BackButton back text="Add Location" />
             <View style={styles.container}>
                 <Ionicons name="search-outline" size={24} color="black" style={styles.icon} />
 

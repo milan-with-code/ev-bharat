@@ -11,7 +11,6 @@ import {
     Outfit_700Bold,
     useFonts as useGoogleFonts
 } from "@expo-google-fonts/outfit";
-import { Ionicons } from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,15 +22,11 @@ export default function RootLayout() {
         Outfit_500Medium,
         Outfit_600SemiBold,
         Outfit_700Bold,
-
     });
-
-    console.log('Available icon fonts:', Object.keys(Ionicons.font));
 
     useEffect(() => {
         async function hideSplash() {
             if ((googleFontsLoaded || googleError) && _hasHydrated) {
-                console.log('Fonts ready:', googleFontsLoaded, 'Error:', googleError);
                 await SplashScreen.hideAsync();
             }
         }

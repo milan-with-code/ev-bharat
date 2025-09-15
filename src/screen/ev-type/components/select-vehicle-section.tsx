@@ -2,16 +2,8 @@ import { Dimensions, FlatList, Pressable, StyleSheet, View } from "react-native"
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import React from "react";
-import { EvType } from "@/mocks/data";
+import { EvType, SelectVehicleType } from "@/types";
 
-interface SelectVehicleType {
-    data: {
-        title: string,
-        data: EvType[]
-    },
-    selected: string | null;
-    onSelect: (type: string) => void;
-}
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -22,7 +14,7 @@ const NUM_COLUMNS = 2;
 const itemWidth =
     (screenWidth - H_PADDING - GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS;
 
-export default function SelectVehicleSection({ data, selected, onSelect }: SelectVehicleType) {
+export default function SelectVehicleSection({ title, data, selected, onSelect }: SelectVehicleType) {
     const BrandRenderItem = ({ icon: Icon, type }: EvType) => {
         const isSelected = type === selected;
         return (
@@ -40,11 +32,11 @@ export default function SelectVehicleSection({ data, selected, onSelect }: Selec
     return (
         <React.Fragment>
             <View style={styles.headerWrapper}>
-                <ThemedText style={styles.heading}>{data.title}</ThemedText>
+                <ThemedText style={styles.heading}>{title}</ThemedText>
             </View>
             <View style={styles.listWrapper}>
                 <FlatList
-                    data={data?.data}
+                    data={data}
                     keyExtractor={(item) => item.type}
                     renderItem={({ item }) => <BrandRenderItem {...item} />}
                     numColumns={NUM_COLUMNS}
@@ -57,10 +49,10 @@ export default function SelectVehicleSection({ data, selected, onSelect }: Selec
 
 const styles = StyleSheet.create({
     headerWrapper: {
-        paddingVertical: 24,
+        paddingTop: 24,
+        paddingBottom: 16
     },
     heading: {
-        paddingBottom: 8,
         textAlign: "center",
         fontSize: 24,
         lineHeight: 32,

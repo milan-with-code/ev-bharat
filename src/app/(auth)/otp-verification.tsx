@@ -16,7 +16,7 @@ export default function Page() {
     };
     return (
         <ScreenWrapper>
-            <BackButton />
+            <BackButton back />
             <View style={{ marginTop: 40 }}>
                 <View style={{ marginBottom: 32 }}>
                     <ThemedText type="title" fontVariant="bold" style={{ marginBottom: 12 }}>

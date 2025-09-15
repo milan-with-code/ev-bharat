@@ -1,94 +1,121 @@
-import BackButton from "@/components/BackButton";
-import ScreenWrapper from "@/components/ScreenWrapper";
+import { useState, ReactNode } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import StepIndicator from "./components/StepIndicator";
-import { useState } from "react";
+import ScreenWrapper from "@/components/ScreenWrapper";
 import { Button } from "@/components/Button";
-import { brandData, evTypeData, steps } from "@/mocks/data";
+import { brandData, evTypeData, modalData, steps } from "@/mocks/data";
 import SelectVehicleSection from "./components/select-vehicle-section";
+import SelectModelSection from "./components/select-model-section";
+import StepIndicator from "./components/step-indicator";
+import BackButton from "@/components/BackButton";
+import { useRouter } from "expo-router";
 
-const selectEvType = {
-    title: "Select Your EV Type",
-    data: evTypeData
-}
+type StepConfig = {
+    header: ReactNode;
+    component: ReactNode;
+};
 
-const selectEvBrand = {
-    title: "Select Your EV Brand",
-    data: brandData
-}
+type StepsConfig = Record<number, StepConfig>;
 
 const { width: screenWidth } = Dimensions.get("window");
 
 export default function EvType() {
+    const router = useRouter()
     const [step, setStep] = useState(1);
     const [selectedEvType, setSelectedEvType] = useState<string | null>(null);
     const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+    const [selectedModal, setSelectedModal] = useState<string | null>(
+        modalData[0]?.connectors ?? null
+    );
 
-    const renderElement = (number: number) => {
-        switch (number) {
-            case 1:
-                return <SelectVehicleSection data={selectEvType} onSelect={setSelectedEvType} selected={selectedEvType} />
-            case 2:
-                return <SelectVehicleSection data={selectEvBrand} onSelect={setSelectedBrand} selected={selectedBrand} />
-            default:
-                break;
+    const goNext = () => {
+        setStep((prev) => (prev < 3 ? prev + 1 : prev));
+        if (step >= 3) {
+            router.push('(setup)/vehicle-setup');
         }
-    }
+    };
+    const goBack = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
+
+    const stepsConfig: StepsConfig = {
+        1: {
+            header: (
+                <BackButton
+                    text="Vehicle Type"
+                    textOnly
+                    textStyle={styles.headerTextOnly}
+                />
+            ),
+            component: (
+                <SelectVehicleSection
+                    data={evTypeData}
+                    title="Select Your EV Type"
+                    selected={selectedEvType}
+                    onSelect={setSelectedEvType}
+                />
+            ),
+        },
+        2: {
+            header: (
+                <BackButton text="Select Brand" back onPress={goBack} />
+            ),
+            component: (
+                <SelectVehicleSection
+                    data={brandData}
+                    title="Select Your EV Brand"
+                    selected={selectedBrand}
+                    onSelect={setSelectedBrand}
+                />
+            ),
+        },
+        3: {
+            header: (
+                <BackButton text="Select Model" back onPress={goBack} />
+            ),
+            component: (
+                <SelectModelSection
+                    data={modalData}
+                    selected={selectedModal}
+                    onSelect={setSelectedModal}
+                />
+            ),
+        },
+    };
+
     return (
         <ScreenWrapper style={styles.container}>
-            <View style={{ marginHorizontal: -16 }}>
-                <BackButton textComponent text="Vehicle Type" textStyle={{ paddingHorizontal: 16 }} />
+            <View style={step === 1 && styles.headerStepOne}>
+                {stepsConfig[step].header}
             </View>
+
             <StepIndicator steps={steps} currentStep={step} />
-            {renderElement(step)}
-            <View style={{
-                position: "absolute",
-                bottom: 0,
-                width: screenWidth,
-                padding: 16,
-                backgroundColor: "white",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.16,
-                shadowRadius: 8,
-                elevation: 5,
-            }}>
-                <Button title="Continue" onPress={() => setStep((prev) => prev < 3 ? prev + 1 : prev)} />
+            {stepsConfig[step].component}
+
+            <View style={styles.footer}>
+                <Button title={step === 3 ? (selectedModal || "Default") : "Continue"} onPress={goNext} />
             </View>
-        </ScreenWrapper >
-    )
+        </ScreenWrapper>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         position: "relative",
     },
-    textContainer: {
-        marginVertical: 24,
+    headerStepOne: {
+        marginHorizontal: -16,
+    },
+    headerTextOnly: {
         paddingHorizontal: 16,
     },
-    heading: {
-        paddingBottom: 8,
-        textAlign: "center",
-        fontSize: 24,
-        lineHeight: 32,
-        fontFamily: "Outfit_700Bold",
-    },
-    subText: {
-        textAlign: "center",
-    },
-    image: {
-        marginTop: 48,
-        alignSelf: "center",
-    },
-    buttonContainer: {
+    footer: {
         position: "absolute",
-        bottom: 40,
-        width: "100%",
-        paddingVertical: 16,
-        alignSelf: "center",
-    },
-    manualButton: {
-        marginTop: 4,
+        bottom: 0,
+        width: screenWidth,
+        padding: 16,
+        backgroundColor: "white",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.16,
+        shadowRadius: 8,
+        elevation: 5,
     },
 });
