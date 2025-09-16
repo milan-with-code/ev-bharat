@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
-import { getItem, setItem, deleteItemAsync } from "expo-secure-store"
+import * as SecureStore from "expo-secure-store";
 
 
 type UserState = {
@@ -12,7 +12,11 @@ type UserState = {
     logOut: () => void
     completedOnboarding: () => void
     resetOnboarding: () => void
-    setHasHydrated: (value: boolean) => void
+    setHasHydrated: (value: boolean) => void,
+    isLocationSetup: boolean,
+    completedLocationSetup: () => void
+    hasCompletedVehicleSetup: boolean,
+    completedVehicleSetup: () => void,
 }
 
 export const useAuthStore = create(
@@ -21,6 +25,9 @@ export const useAuthStore = create(
         isLoggedIn: false,
         shouldCreateAccount: false,
         hasCompletedOnboarding: false,
+        isLocationSetup: false,
+        hasCompletedVehicleSetup: false,
+
         logIn: () => {
             set((state) => {
                 return (
@@ -61,6 +68,14 @@ export const useAuthStore = create(
                 )
             })
         },
+        completedLocationSetup: () => {
+            set((state) => {
+                return {
+                    ...state,
+                    isLocationSetup: true
+                }
+            })
+        },
         setHasHydrated: (value: boolean) => {
             set((state: any) => {
                 return {
@@ -69,17 +84,25 @@ export const useAuthStore = create(
                 };
             });
         },
+        completedVehicleSetup: () => {
+            set((state) => {
+                return {
+                    ...state,
+                    hasCompletedVehicleSetup: true
+                }
+            })
+        }
     }), {
         "name": "auth-store",
         storage: createJSONStorage(() => ({
-            setItem,
-            getItem,
-            removeItem: deleteItemAsync
+            getItem: SecureStore.getItemAsync,
+            setItem: SecureStore.setItemAsync,
+            removeItem: SecureStore.deleteItemAsync,
         })),
-        onRehydrateStorage(state) {
-            return (state) => {
-                state?.setHasHydrated(true)
+        onRehydrateStorage: () => (state) => {
+            if (state?.setHasHydrated) {
+                state.setHasHydrated(true);
             }
-        },
+        }
     })
 )

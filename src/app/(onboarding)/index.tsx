@@ -1,7 +1,6 @@
 import { Image } from "expo-image";
 import { StatusBar, View, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
-import Onboarding from "@assets/Onboarding1.png";
 import { Button } from "@/components/Button";
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
@@ -22,7 +21,10 @@ export default function Page() {
 
     return (
         <View style={styles.container}>
-            <Image source={Onboarding} style={styles.backgroundImage} contentFit="cover" />
+            <Image
+                source="https://raw.githubusercontent.com/milan-with-code/ev-bharat/refs/heads/feature/auth-flow/assets/Onboarding1.png"
+                cachePolicy="memory-disk"
+                style={styles.backgroundImage} contentFit="cover" />
 
             <View style={styles.skipButtonContainer}>
                 <Button

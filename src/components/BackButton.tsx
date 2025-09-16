@@ -1,55 +1,70 @@
-import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { StyleSheet, TextStyle, TouchableOpacity, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
 import { useRouter } from "expo-router";
 import { ThemedText } from "./ThemedText";
 
-interface BackButtonType {
-    style?: ViewStyle;
+type BackButtonProps = {
     text?: string;
-    arrayButton?: boolean,
-    textComponent?: boolean
-}
+    back?: boolean;
+    textOnly?: boolean;
+    textStyle?: TextStyle,
+    onPress?: () => void;
+};
 
-export default function BackButton({ style, text, textComponent = false, arrayButton = false }: BackButtonType) {
+export default function BackButton({ text, textStyle, back = false, textOnly = false, onPress }: BackButtonProps) {
     const router = useRouter();
     const canGoBack = router.canGoBack();
 
+    if (textOnly && text) {
+        return (
+            <View style={[styles.textHeader, textStyle]}>
+                <ThemedText type="defaultSemiBold" fontVariant="semiBold">{text}</ThemedText>
+            </View>
+        );
+    }
+
     if (!canGoBack && !text) return null;
 
-    const ArrowButton = (
-        <TouchableOpacity
-            onPress={() => router.back()}
-            activeOpacity={0.8}
-            style={[styles.container, style, { backgroundColor: text ? "transparent" : Colors.catskillWhite }]}
-        >
-            <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-    );
-
-    const TextComponent =
-        <ThemedText type="defaultSemiBold" fontVariant="semiBold" style={{ marginVertical: 16, }}>
-            {text}
-        </ThemedText>
-
-    if (textComponent && text) return <View>{TextComponent}</View>;
-    if (arrayButton) return ArrowButton;
+    const handleBack = () => {
+        if (onPress) {
+            onPress();
+        } else if (canGoBack) {
+            router.back();
+        }
+    };
 
     return (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-            {ArrowButton}
-            {TextComponent}
+        <View style={styles.row}>
+            {back && (onPress || canGoBack) && (
+                <TouchableOpacity onPress={handleBack} activeOpacity={0.8} style={[styles.icon, { backgroundColor: text ? "transparent" : Colors.catskillWhite }]}>
+                    <Ionicons name="arrow-back" size={24} color="black" />
+                </TouchableOpacity>
+            )}
+            {text && (
+                <ThemedText type="defaultSemiBold" fontVariant="semiBold">{text}</ThemedText>
+            )}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    icon: {
         height: 40,
         width: 40,
         justifyContent: "center",
         alignItems: "center",
         marginVertical: 8,
         borderRadius: 24,
+    },
+    row: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+    },
+    textHeader: {
+        paddingVertical: 16,
+        borderBottomColor: Colors.catskillWhite,
+        borderBottomWidth: 1,
     },
 });

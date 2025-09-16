@@ -4,18 +4,23 @@ import ScreenWrapper from "@/components/ScreenWrapper";
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import OTPInput from "@/screen/auth/components/OTPInput";
+import { useAuthStore } from "@/utils/authStore";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
 
 export default function Page() {
+    const { logIn } = useAuthStore()
     const router = useRouter();
     const handleOTPComplete = (code: string) => {
         Alert.alert("OTP Entered", code);
     };
     return (
-        <ScreenWrapper>
-            <BackButton />
-            <View style={{ marginTop: 40 }}>
+        <ScreenWrapper style={{ paddingHorizontal: 16 }}>
+            <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8} style={[styles.icon, { backgroundColor: Colors.catskillWhite }]}>
+                <Ionicons name="arrow-back" size={24} color="black" />
+            </TouchableOpacity>
+            <View style={{ marginTop: 40, }}>
                 <View style={{ marginBottom: 32 }}>
                     <ThemedText type="title" fontVariant="bold" style={{ marginBottom: 12 }}>
                         Verify Your Number
@@ -30,7 +35,15 @@ export default function Page() {
                         onComplete={handleOTPComplete}
                         containerStyle={{ marginBottom: 24 }}
                     />
-                    <Button title="Verify" variant="touchable" activeOpacity={0.9} onPress={() => router.push("(auth)/otp-verification")} />
+                    <Button
+                        title="Verify"
+                        variant="touchable"
+                        activeOpacity={0.9}
+                        onPress={() => {
+                            logIn()
+                            router.replace("(setup)/location")
+                        }}
+                    />
                 </View>
             </View>
         </ScreenWrapper>
@@ -41,5 +54,13 @@ export default function Page() {
 const styles = StyleSheet.create({
     inputSection: {
         marginBottom: 32,
+    },
+    icon: {
+        height: 40,
+        width: 40,
+        justifyContent: "center",
+        alignItems: "center",
+        marginVertical: 8,
+        borderRadius: 24,
     }
 })
