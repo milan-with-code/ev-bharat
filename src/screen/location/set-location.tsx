@@ -8,10 +8,12 @@ import { Button } from "@/components/Button";
 import { useRouter } from "expo-router";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 import { useLocationStore } from "@/store/useLocationStore";
+import { useAuthStore } from "@/utils/authStore";
 
 export default function SetLocation() {
     const { loading, getCurrentLocation } = useCurrentLocation();
     const { setLocation } = useLocationStore()
+    const { completedLocationSetup } = useAuthStore()
     const router = useRouter();
 
     async function handleGetLocation() {
@@ -36,6 +38,7 @@ export default function SetLocation() {
                     Allow location access to show EV charging stations & parking spots near you
                 </ThemedText>
             </View>
+
 
             <LocationGroup style={styles.image} />
 

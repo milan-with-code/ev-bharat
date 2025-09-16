@@ -68,7 +68,7 @@ export default function EvType() {
         },
         3: {
             header: (
-                <BackButton text="Select Model" back onPress={goBack} />
+                <BackButton text="Select Brand" back onPress={goBack} />
             ),
             component: (
                 <SelectModelSection

@@ -15,6 +15,8 @@ type UserState = {
     setHasHydrated: (value: boolean) => void,
     isLocationSetup: boolean,
     completedLocationSetup: () => void
+    hasCompletedVehicleSetup: boolean,
+    completedVehicleSetup: () => void,
 }
 
 export const useAuthStore = create(
@@ -24,6 +26,7 @@ export const useAuthStore = create(
         shouldCreateAccount: false,
         hasCompletedOnboarding: false,
         isLocationSetup: false,
+        hasCompletedVehicleSetup: false,
 
         logIn: () => {
             set((state) => {
@@ -81,6 +84,14 @@ export const useAuthStore = create(
                 };
             });
         },
+        completedVehicleSetup: () => {
+            set((state) => {
+                return {
+                    ...state,
+                    hasCompletedVehicleSetup: true
+                }
+            })
+        }
     }), {
         "name": "auth-store",
         storage: createJSONStorage(() => ({

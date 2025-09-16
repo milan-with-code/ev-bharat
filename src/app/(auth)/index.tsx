@@ -71,7 +71,8 @@ export default function PhoneAuthentication() {
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        marginTop: 48
+        marginTop: 48,
+        paddingHorizontal: 16
     },
     inputSection: {
         marginBottom: 48,

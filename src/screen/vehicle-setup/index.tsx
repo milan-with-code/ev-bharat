@@ -1,11 +1,14 @@
 import BackButton from "@/components/BackButton";
 import ScreenWrapper from "@/components/ScreenWrapper";
-import { ThemedText } from "@/components/ThemedText";
+import { View } from "react-native";
 
 export default function VehicleSetup() {
     return (
         <ScreenWrapper>
             <BackButton back text="Vehicle Setup" />
+            <View style={{ paddingHorizontal: 16 }}>
+
+            </View>
         </ScreenWrapper>
     );
 }
