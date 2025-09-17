@@ -5,7 +5,6 @@ export default function Page() {
     return (
         <View style={styles.container}>
             <Text>Open up Booking.tsx to start working on your app!</Text>
-            <StatusBar style="auto" />
         </View>
     );
 }

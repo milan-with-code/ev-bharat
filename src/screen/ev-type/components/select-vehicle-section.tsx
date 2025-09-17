@@ -4,7 +4,6 @@ import { Colors } from "@/constants/Colors";
 import React from "react";
 import { EvType, SelectVehicleType } from "@/types";
 
-
 const { width: screenWidth } = Dimensions.get("window");
 
 const H_PADDING = 32;
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
         fontFamily: "Outfit_700Bold",
     },
     listWrapper: {
-        paddingVertical: 16,
+        padding: 16,
     },
     card: {
         paddingVertical: 12,

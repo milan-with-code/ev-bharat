@@ -1,6 +1,5 @@
 import { useState, ReactNode } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import ScreenWrapper from "@/components/ScreenWrapper";
 import { Button } from "@/components/Button";
 import { brandData, evTypeData, modalData, steps } from "@/mocks/data";
 import SelectVehicleSection from "./components/select-vehicle-section";
@@ -8,19 +7,22 @@ import SelectModelSection from "./components/select-model-section";
 import StepIndicator from "./components/step-indicator";
 import BackButton from "@/components/BackButton";
 import { useRouter } from "expo-router";
+import { Colors } from "@/constants/Colors";
+import { SafeAreaView } from "react-native-safe-area-context";
+import VehicleNumberModal from "./components/vehicle-number-modal";
 
 type StepConfig = {
     header: ReactNode;
     component: ReactNode;
 };
-
 type StepsConfig = Record<number, StepConfig>;
 
 const { width: screenWidth } = Dimensions.get("window");
 
 export default function EvType() {
-    const router = useRouter()
+    const router = useRouter();
     const [step, setStep] = useState(1);
+    const [isVisible, setIsVisible] = useState(false);
     const [selectedEvType, setSelectedEvType] = useState<string | null>(null);
     const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
     const [selectedModal, setSelectedModal] = useState<string | null>(
@@ -28,12 +30,14 @@ export default function EvType() {
     );
 
     const goNext = () => {
-        setStep((prev) => (prev < 3 ? prev + 1 : prev));
-        if (step >= 3) {
-            router.push('(setup)/vehicle-setup');
+        if (step < 3) {
+            setStep(step + 1);
+        } else {
+            setIsVisible(true);
         }
     };
-    const goBack = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
+
+    const goBack = () => setStep((prev) => Math.max(1, prev - 1));
 
     const stepsConfig: StepsConfig = {
         1: {
@@ -54,9 +58,7 @@ export default function EvType() {
             ),
         },
         2: {
-            header: (
-                <BackButton text="Select Brand" back onPress={goBack} />
-            ),
+            header: <BackButton text="Select Brand" back onPress={goBack} />,
             component: (
                 <SelectVehicleSection
                     data={brandData}
@@ -67,9 +69,7 @@ export default function EvType() {
             ),
         },
         3: {
-            header: (
-                <BackButton text="Select Brand" back onPress={goBack} />
-            ),
+            header: <BackButton text="Select Model" back onPress={goBack} />,
             component: (
                 <SelectModelSection
                     data={modalData}
@@ -80,28 +80,53 @@ export default function EvType() {
         },
     };
 
+    const isStepDisabled = () =>
+        (step === 1 && !selectedEvType) ||
+        (step === 2 && !selectedBrand) ||
+        (step === 3 && !selectedModal);
+
     return (
-        <ScreenWrapper style={styles.container}>
-            <View style={step === 1 && styles.headerStepOne}>
-                {stepsConfig[step].header}
+        <SafeAreaView style={styles.container}>
+            {stepsConfig[step].header}
+            <View style={{ flex: 1 }}>
+                <StepIndicator steps={steps} currentStep={step} />
+                {stepsConfig[step].component}
+
+                <View style={styles.footer}>
+                    <Button
+                        title={step === 3 ? selectedModal || "Submit" : "Continue"}
+                        onPress={goNext}
+                        disabled={isStepDisabled()}
+                    />
+
+                    {step === 1 && (
+                        <Button
+                            variant="touchable"
+                            activeOpacity={0.7}
+                            title="Enter Manually"
+                            type="normal"
+                            style={styles.manualButton}
+                            onPress={() =>
+                                router.push("vehicle/manually-vehicle-setup")
+                            }
+                        />
+                    )}
+                </View>
             </View>
 
-            <StepIndicator steps={steps} currentStep={step} />
-            {stepsConfig[step].component}
-
-            <View style={styles.footer}>
-                <Button title={step === 3 ? (selectedModal || "Default") : "Continue"} onPress={goNext} />
-            </View>
-        </ScreenWrapper>
+            <VehicleNumberModal
+                visible={isVisible}
+                onClose={() => setIsVisible(false)}
+            />
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         position: "relative",
-    },
-    headerStepOne: {
-        marginHorizontal: -16,
+        backgroundColor: Colors.alabaster,
     },
     headerTextOnly: {
         paddingHorizontal: 16,
@@ -111,11 +136,8 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: screenWidth,
         padding: 16,
-        backgroundColor: "white",
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.16,
-        shadowRadius: 8,
-        elevation: 5,
+    },
+    manualButton: {
+        marginTop: 4,
     },
 });

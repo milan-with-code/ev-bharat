@@ -114,6 +114,8 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         borderBottomColor: Colors.borderColor,
         borderBottomWidth: 1,
+        backgroundColor: "white",
+        paddingHorizontal: 16,
     },
     listContainer: {
         gap: 12,
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
     },
     modelsContainer: {
         paddingVertical: 20,
+        paddingHorizontal: 16,
     },
     baseModal: {
         padding: 16,

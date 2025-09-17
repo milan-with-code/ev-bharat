@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         paddingVertical: 24,
+        backgroundColor: "white",
+        paddingHorizontal: 16,
     },
     stepWrapper: {
         alignItems: "center",

@@ -5,9 +5,8 @@ import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import OTPInput from "@/screen/auth/components/OTPInput";
 import { useAuthStore } from "@/utils/authStore";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Alert, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 
 export default function Page() {
     const { logIn } = useAuthStore()
@@ -17,10 +16,8 @@ export default function Page() {
     };
     return (
         <ScreenWrapper style={{ paddingHorizontal: 16 }}>
-            <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8} style={[styles.icon, { backgroundColor: Colors.catskillWhite }]}>
-                <Ionicons name="arrow-back" size={24} color="black" />
-            </TouchableOpacity>
-            <View style={{ marginTop: 40, }}>
+            <BackButton type="icon" />
+            <View style={{ marginTop: 40 }}>
                 <View style={{ marginBottom: 32 }}>
                     <ThemedText type="title" fontVariant="bold" style={{ marginBottom: 12 }}>
                         Verify Your Number

@@ -8,63 +8,90 @@ type BackButtonProps = {
     text?: string;
     back?: boolean;
     textOnly?: boolean;
-    textStyle?: TextStyle,
+    textStyle?: TextStyle;
     onPress?: () => void;
+    type?: "default" | "icon";
 };
 
-export default function BackButton({ text, textStyle, back = false, textOnly = false, onPress }: BackButtonProps) {
+export default function BackButton({
+    type = "default",
+    text,
+    textStyle,
+    back = false,
+    textOnly = false,
+    onPress,
+}: BackButtonProps) {
     const router = useRouter();
     const canGoBack = router.canGoBack();
+
+    const handleBack = () => {
+        if (onPress) return onPress();
+        if (canGoBack) router.back();
+    };
 
     if (textOnly && text) {
         return (
             <View style={[styles.textHeader, textStyle]}>
-                <ThemedText type="defaultSemiBold" fontVariant="semiBold">{text}</ThemedText>
+                <ThemedText type="defaultSemiBold" fontVariant="semiBold">
+                    {text}
+                </ThemedText>
             </View>
         );
     }
 
     if (!canGoBack && !text) return null;
 
-    const handleBack = () => {
-        if (onPress) {
-            onPress();
-        } else if (canGoBack) {
-            router.back();
-        }
-    };
+    if (type === "icon") {
+        return (
+            <TouchableOpacity
+                style={styles.iconButton}
+                onPress={handleBack}
+                activeOpacity={0.8}
+            >
+                <Ionicons name="arrow-back" size={22} color="black" />
+            </TouchableOpacity>
+        );
+    }
 
     return (
         <View style={styles.row}>
             {back && (onPress || canGoBack) && (
-                <TouchableOpacity onPress={handleBack} activeOpacity={0.8} style={[styles.icon, { backgroundColor: text ? "transparent" : Colors.catskillWhite }]}>
+                <TouchableOpacity onPress={handleBack} activeOpacity={0.8}>
                     <Ionicons name="arrow-back" size={24} color="black" />
                 </TouchableOpacity>
             )}
             {text && (
-                <ThemedText type="defaultSemiBold" fontVariant="semiBold">{text}</ThemedText>
+                <ThemedText type="defaultSemiBold" fontVariant="semiBold">
+                    {text}
+                </ThemedText>
             )}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    icon: {
+    row: {
+        backgroundColor: "white",
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        padding: 16,
+        borderBottomColor: Colors.catskillWhite,
+        borderBottomWidth: 1,
+    },
+    textHeader: {
+        borderBottomColor: Colors.catskillWhite,
+        borderBottomWidth: 1,
+        paddingVertical: 16,
+        backgroundColor: "white",
+    },
+    iconButton: {
+        marginVertical: 8,
+        backgroundColor: Colors.catskillWhite,
         height: 40,
         width: 40,
         justifyContent: "center",
         alignItems: "center",
-        marginVertical: 8,
-        borderRadius: 24,
-    },
-    row: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 8,
-    },
-    textHeader: {
-        paddingVertical: 16,
-        borderBottomColor: Colors.catskillWhite,
-        borderBottomWidth: 1,
+        borderRadius: 20,
     },
 });

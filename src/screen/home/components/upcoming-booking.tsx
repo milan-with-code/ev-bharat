@@ -1,4 +1,4 @@
-import Card from "@/components/card";
+import Card from "@/components/Card";
 import { ThemedText } from "@/components/ThemedText";
 import { Link } from "expo-router";
 import { Pressable, View } from "react-native";

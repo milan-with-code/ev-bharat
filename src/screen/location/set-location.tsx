@@ -20,44 +20,44 @@ export default function SetLocation() {
         const location = await getCurrentLocation();
         if (location) {
             setLocation(location)
-            router.replace("(setup)/ev-type")
+            completedLocationSetup()
+            router.replace("vehicle/index")
         }
     }
 
     return (
         <ScreenWrapper style={styles.container}>
-            <View style={{ marginHorizontal: -16 }}>
-                <BackButton textOnly text="Set Location" textStyle={{ paddingHorizontal: 16 }} />
-            </View>
-
-            <View style={styles.textContainer}>
-                <ThemedText style={styles.heading}>
-                    Allow Location
-                </ThemedText>
-                <ThemedText style={styles.subText} color={Colors.mako} type="defaultSemiBold">
-                    Allow location access to show EV charging stations & parking spots near you
-                </ThemedText>
-            </View>
+            <BackButton textOnly text="Set Location" textStyle={{ paddingHorizontal: 16 }} />
+            <View style={{ paddingHorizontal: 16, flex: 1 }}>
+                <View style={styles.textContainer}>
+                    <ThemedText style={styles.heading}>
+                        Allow Location
+                    </ThemedText>
+                    <ThemedText style={styles.subText} color={Colors.mako} type="defaultSemiBold">
+                        Allow location access to show EV charging stations & parking spots near you
+                    </ThemedText>
+                </View>
 
 
-            <LocationGroup style={styles.image} />
+                <LocationGroup style={styles.image} />
 
-            <View style={styles.buttonContainer}>
-                <Button
-                    variant="touchable"
-                    activeOpacity={0.7}
-                    title="Device Location"
-                    onPress={handleGetLocation}
-                    isLoading={loading}
-                />
-                <Button
-                    variant="touchable"
-                    activeOpacity={0.7}
-                    title="Enter Manually"
-                    type="normal"
-                    style={styles.manualButton}
-                    onPress={() => router.push("(setup)/manual-location")}
-                />
+                <View style={styles.buttonContainer}>
+                    <Button
+                        variant="touchable"
+                        activeOpacity={0.7}
+                        title="Device Location"
+                        onPress={handleGetLocation}
+                        isLoading={loading}
+                    />
+                    <Button
+                        variant="touchable"
+                        activeOpacity={0.7}
+                        title="Enter Manually"
+                        type="normal"
+                        style={styles.manualButton}
+                        onPress={() => router.push("location/manual-location")}
+                    />
+                </View>
             </View>
         </ScreenWrapper>
     );

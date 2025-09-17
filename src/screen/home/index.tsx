@@ -6,11 +6,11 @@ import { Separator } from "@/components/Separator";
 import { Colors } from "@/constants/Colors";
 import Windy from "@assets/svg/windy.svg";
 import Tree from "@assets/svg/tree.svg";
-import Card from "@/components/card";
 import ProgressBar from "@/components/ProgressBar";
 import UpcomingBooking from "./components/upcoming-booking";
 import OffersForYou from "./components/offers-for-you";
 import NearBySection from "./components/near-by-section";
+import Card from "@/components/Card";
 
 export default function HomeLayout() {
   return (
