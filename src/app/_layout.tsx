@@ -37,23 +37,34 @@ export default function RootLayout() {
         return null;
     }
 
+    const isOnboarding = !hasCompletedOnboarding;
+    const isAuth = !isLoggedIn && hasCompletedOnboarding;
+    const isLocation = isLoggedIn && !isLocationSetup;
+    const isVehicle = isLoggedIn && isLocationSetup && !hasCompletedVehicleSetup;
+    const isMain =
+        isLoggedIn &&
+        hasCompletedOnboarding &&
+        isLocationSetup &&
+        hasCompletedVehicleSetup;
+
+
     return (
         <SafeAreaProvider>
             <StatusBar style="light" />
             <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Protected guard={!hasCompletedOnboarding}>
+                <Stack.Protected guard={isOnboarding}>
                     <Stack.Screen name="onboarding" />
                 </Stack.Protected>
-                <Stack.Protected guard={!isLoggedIn && hasCompletedOnboarding}>
+                <Stack.Protected guard={isAuth}>
                     <Stack.Screen name="(auth)" />
                 </Stack.Protected>
-                <Stack.Protected guard={isLoggedIn && !isLocationSetup}>
+                <Stack.Protected guard={isLocation}>
                     <Stack.Screen name="location" />
                 </Stack.Protected>
-                <Stack.Protected guard={isLoggedIn && isLocationSetup && !hasCompletedVehicleSetup}>
+                <Stack.Protected guard={isVehicle}>
                     <Stack.Screen name="vehicle" />
                 </Stack.Protected>
-                <Stack.Protected guard={isLoggedIn && hasCompletedOnboarding && isLocationSetup && hasCompletedVehicleSetup}>
+                <Stack.Protected guard={isMain}>
                     <Stack.Screen name="(main)" />
                 </Stack.Protected>
             </Stack>

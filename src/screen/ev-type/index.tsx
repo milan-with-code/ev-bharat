@@ -116,7 +116,10 @@ export default function EvType() {
 
             <VehicleNumberModal
                 visible={isVisible}
-                onClose={() => setIsVisible(false)}
+                onClose={() => {
+                    setIsVisible(false);
+                    router.replace("vehicle/vehicle-added");
+                }}
             />
         </SafeAreaView>
     );

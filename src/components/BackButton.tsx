@@ -1,7 +1,13 @@
-import { StyleSheet, TextStyle, TouchableOpacity, View } from "react-native";
+import {
+    Pressable,
+    StyleSheet,
+    TextStyle,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { ThemedText } from "./ThemedText";
 
 type BackButtonProps = {
@@ -11,6 +17,8 @@ type BackButtonProps = {
     textStyle?: TextStyle;
     onPress?: () => void;
     type?: "default" | "icon";
+    rightPosition?: string | boolean;
+    href?: string;
 };
 
 export default function BackButton({
@@ -19,6 +27,8 @@ export default function BackButton({
     textStyle,
     back = false,
     textOnly = false,
+    rightPosition = false,
+    href = "",
     onPress,
 }: BackButtonProps) {
     const router = useRouter();
@@ -31,10 +41,21 @@ export default function BackButton({
 
     if (textOnly && text) {
         return (
-            <View style={[styles.textHeader, textStyle]}>
+            <View
+                style={[
+                    styles.textHeader,
+                    textStyle,
+                    rightPosition && {
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    },
+                ]}
+            >
                 <ThemedText type="defaultSemiBold" fontVariant="semiBold">
                     {text}
                 </ThemedText>
+                {rightPosition && <Link href={href}>{rightPosition}</Link>}
             </View>
         );
     }

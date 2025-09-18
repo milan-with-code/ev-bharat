@@ -38,7 +38,7 @@ export default function Page() {
                         activeOpacity={0.9}
                         onPress={() => {
                             logIn()
-                            router.replace("(setup)/location")
+                            router.replace("location")
                         }}
                     />
                 </View>

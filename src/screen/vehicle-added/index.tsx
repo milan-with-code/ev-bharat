@@ -5,9 +5,11 @@ import { Colors } from "@/constants/Colors";
 import VehicleAdd from "@assets/svg/vehicle-added.svg";
 import { Button } from "@/components/Button";
 import { useRouter } from "expo-router";
+import { useAuthStore } from "@/utils/authStore";
 
 export default function VehicleAdded() {
     const router = useRouter();
+    const { completedVehicleSetup } = useAuthStore()
 
     return (
         <ScreenWrapper style={styles.container}>
@@ -26,7 +28,10 @@ export default function VehicleAdded() {
             <View style={styles.bottomWrapper}>
                 <Button
                     title="Continue"
-                    onPress={() => router.replace("(main)/(tabs)/my-profile")}
+                    onPress={() => {
+                        completedVehicleSetup()
+                        router.replace("(main)/(tabs)/home")
+                    }}
                 />
             </View>
         </ScreenWrapper>

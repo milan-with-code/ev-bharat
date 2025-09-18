@@ -21,12 +21,6 @@ export default function TabsLayout() {
                     letterSpacing: 0.4,
                     lineHeight: 16
                 },
-                tabBarStyle: Platform.select({
-                    ios: {
-                        position: "absolute",
-                    },
-                }),
-
             }}
         >
             <Tabs.Screen

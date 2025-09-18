@@ -21,7 +21,7 @@ export default function SetLocation() {
         if (location) {
             setLocation(location)
             completedLocationSetup()
-            router.replace("vehicle/index")
+            router.replace("vehicle")
         }
     }
 
