@@ -5,7 +5,7 @@ import { Pressable, View } from "react-native";
 import Bold from "@assets/svg/bold.svg";
 import { Colors } from "@/constants/Colors";
 import { Separator } from "@/components/Separator";
-import { AntDesign } from "@expo/vector-icons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import Pump from "@assets/svg/pump.svg";
 
 export default function UpcomingBooking() {
@@ -19,9 +19,17 @@ export default function UpcomingBooking() {
           marginBottom: 12,
         }}
       >
-        <ThemedText type="defaultSemiBold" fontVariant="semiBold">Upcoming Booking</ThemedText>
+        <ThemedText type="defaultSemiBold" fontVariant="semiBold">
+          Upcoming Booking
+        </ThemedText>
         <Link href="/(main)/(extra)/booking-history">
-          <ThemedText fontVariant="regular" type="labelMedium" color={Colors.linkView}>View All</ThemedText>
+          <ThemedText
+            fontVariant="regular"
+            type="labelMedium"
+            color={Colors.linkView}
+          >
+            View All
+          </ThemedText>
         </Link>
       </View>
       <Card padding={12}>
@@ -34,7 +42,9 @@ export default function UpcomingBooking() {
             }}
           >
             <View>
-              <ThemedText type="label" fontVariant="semiBold">Premium EV Hub</ThemedText>
+              <ThemedText type="label" fontVariant="semiBold">
+                Premium EV Hub
+              </ThemedText>
               <ThemedText type="label" color={Colors.regentGray}>
                 MG Road Near Forum Mall, 850m Away
               </ThemedText>
@@ -62,18 +72,26 @@ export default function UpcomingBooking() {
           >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <AntDesign
-                name="clockcircleo"
+                name="clockcircle"
                 size={15}
                 color={Colors.nutralsBlack}
               />
-              <ThemedText fontVariant="regular" type="labelMedium" style={{ marginLeft: 8 }}>
+              <ThemedText
+                fontVariant="regular"
+                type="labelMedium"
+                style={{ marginLeft: 8 }}
+              >
                 Today, 4:30 to 5:30 PM
               </ThemedText>
             </View>
             <Separator thickness={1} orientation="vertical" color="#ACB4B9" />
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Pump width={20} height={20} />
-              <ThemedText fontVariant="regular" type="labelMedium" style={{ marginLeft: 8 }}>
+              <ThemedText
+                fontVariant="regular"
+                type="labelMedium"
+                style={{ marginLeft: 8 }}
+              >
                 Slot CC22 Charger 2
               </ThemedText>
             </View>

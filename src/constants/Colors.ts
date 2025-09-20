@@ -33,5 +33,8 @@ export const Colors = {
     shark: "#242426",
     linkView: "#596269",
     sharkNew: "#1A1C1D",
-    catskillWhite: "#F2F4F8"
+    catskillWhite: "#F2F4F8",
+    mineShaft: "#383838",
+    error: "#F44336",
+    info: "#2196F3",
 };

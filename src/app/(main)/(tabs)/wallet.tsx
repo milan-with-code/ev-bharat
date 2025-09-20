@@ -1,18 +1,5 @@
-import { ThemedText } from '@/components/ThemedText';
-import { StyleSheet, View } from 'react-native';
+import WalletLayout from "@/screen/wallet";
 
 export default function Page() {
-    return (
-        <View style={styles.container}>
-            <ThemedText>Open up Wallet.tsx to start working on your app!</ThemedText>
-        </View>
-    );
+    return <WalletLayout />;
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

@@ -79,7 +79,7 @@ export default function SelectModelSection({ data, selected, title, onSelect }: 
                                         <ThemedText type="label" fontVariant="bold" color="#212121">
                                             {item.kwh}
                                         </ThemedText>
-                                        <ThemedText type="labelMedium" color="#383838">
+                                        <ThemedText type="labelMedium" color={Colors.mineShaft}>
                                             kWh
                                         </ThemedText>
                                     </View>
@@ -87,7 +87,7 @@ export default function SelectModelSection({ data, selected, title, onSelect }: 
                                         <ThemedText type="label" fontVariant="bold" color="#212121">
                                             {item.range}
                                         </ThemedText>
-                                        <ThemedText type="labelMedium" color="#383838">
+                                        <ThemedText type="labelMedium" color={Colors.mineShaft}>
                                             Range
                                         </ThemedText>
                                     </View>
@@ -95,17 +95,17 @@ export default function SelectModelSection({ data, selected, title, onSelect }: 
                                         <ThemedText type="label" fontVariant="bold" color="#212121">
                                             DC Fast
                                         </ThemedText>
-                                        <ThemedText type="labelMedium" color="#383838">
+                                        <ThemedText type="labelMedium" color={Colors.mineShaft}>
                                             {item.dcFast}
                                         </ThemedText>
                                     </View>
                                 </View>
-                            </Pressable>
+                            </Pressable >
                         );
                     }}
                 />
-            </View>
-        </View>
+            </View >
+        </View >
     );
 }
 

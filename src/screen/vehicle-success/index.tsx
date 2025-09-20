@@ -7,17 +7,19 @@ import { Button } from "@/components/Button";
 import { useRouter } from "expo-router";
 import { useAuthStore } from "@/utils/authStore";
 
-export default function VehicleAdded() {
+export default function VehicleSuccess() {
     const router = useRouter();
-    const { completedVehicleSetup } = useAuthStore()
+    const { completedVehicleSetup } = useAuthStore();
 
     return (
         <ScreenWrapper style={styles.container}>
             <View style={styles.textWrapper}>
-                <ThemedText style={styles.title}>
-                    Vehicle Added Successfully
-                </ThemedText>
-                <ThemedText style={styles.subtitle} color={Colors.mako} type="defaultSemiBold">
+                <ThemedText style={styles.title}>Vehicle Added Successfully</ThemedText>
+                <ThemedText
+                    style={styles.subtitle}
+                    color={Colors.mako}
+                    type="defaultSemiBold"
+                >
                     Your BMW iX1 has been added. Let’s help you find a nearby charging or
                     parking spot.
                 </ThemedText>
@@ -29,8 +31,8 @@ export default function VehicleAdded() {
                 <Button
                     title="Continue"
                     onPress={() => {
-                        completedVehicleSetup()
-                        router.replace("(main)/(tabs)/home")
+                        completedVehicleSetup();
+                        router.replace("(main)/(extra)/my-profile");
                     }}
                 />
             </View>

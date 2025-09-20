@@ -1,4 +1,4 @@
-import VehicleAdded from "@/screen/vehicle-added";
+import VehicleAdded from "@/screen/vehicle-success";
 
 export default function Page() {
     return <VehicleAdded />
