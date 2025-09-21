@@ -19,8 +19,7 @@ export default function Page() {
     const [otp, setOtp] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { setUser } = useUserStore();
-    const { verificationId, phoneNumber } = useLocalSearchParams();
-    const verificationIdStr = Array.isArray(verificationId) ? verificationId[0] : verificationId;
+    const { sessionInfo, phoneNumber } = useLocalSearchParams();
 
     const addToast = useToastStore((state) => state.addToast);
 
@@ -40,7 +39,7 @@ export default function Page() {
             return;
         }
 
-        if (!verificationIdStr) {
+        if (!sessionInfo) {
             addToast({ message: "Missing verification ID", type: "error" });
             return;
         }
@@ -48,7 +47,8 @@ export default function Page() {
         setIsLoading(true);
 
         try {
-            const credential: PhoneAuthCredential = PhoneAuthProvider.credential(verificationIdStr, otp);
+            const verificationId = Array.isArray(sessionInfo) ? sessionInfo[0] : sessionInfo;
+            const credential: PhoneAuthCredential = PhoneAuthProvider.credential(verificationId, otp);
             const userCredential = await signInWithCredential(auth, credential);
 
             logIn();

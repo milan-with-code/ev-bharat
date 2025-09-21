@@ -1,21 +1,16 @@
+import { useState } from "react";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
 import { Button } from "@/components/Button";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { ThemedText } from "@/components/ThemedText";
 import { useToastStore } from "@/components/ui/Toast";
-import { auth } from "@/config/firebase";
 import { Colors } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
-import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-import { useRouter } from "expo-router";
-import { PhoneAuthProvider } from "firebase/auth";
-import { useRef, useState } from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function PhoneAuthentication() {
-    const recaptchaVerifier = useRef<any>(null);
     const router = useRouter();
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [verificationId, setVerificationId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const addToast = useToastStore((state) => state.addToast);
 
@@ -24,90 +19,97 @@ export default function PhoneAuthentication() {
             addToast({ message: "Please enter phone number", type: "error" });
             return;
         }
+
         setIsLoading(true);
+
         try {
-            const provider = new PhoneAuthProvider(auth);
-            const id = await provider.verifyPhoneNumber(`+91${phoneNumber}`, recaptchaVerifier.current);
-            setVerificationId(id);
+            const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/send-otp`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ phoneNumber: `+91${phoneNumber}` }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) throw new Error(data.message || "Failed to send OTP");
+
+            const sessionInfo = data.sessionInfo;
             addToast({ message: "OTP sent successfully!", type: "success" });
+
             router.push({
                 pathname: "(auth)/otp-verification",
-                params: { verificationId: id, phoneNumber }
+                params: { sessionInfo, phoneNumber },
             });
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            alert("Failed to send OTP");
-        }
-        finally {
+            alert(err.message || "Failed to send OTP");
+        } finally {
             setIsLoading(false);
         }
     };
 
+
+
     return (
         <ScreenWrapper>
-            <FirebaseRecaptchaVerifierModal
-                ref={recaptchaVerifier}
-                firebaseConfig={auth.app.options}
-            />
-            {
-                !verificationId &&
-                <View style={styles.content}>
-                    <View style={{ marginBottom: 32 }}>
-                        <ThemedText type="title" fontVariant="bold" style={{ marginBottom: 12 }}>
-                            One App. Total Control.
-                        </ThemedText>
-                        <ThemedText color={Colors.mako} type="defaultSemiBold">
-                            Manage all your EV needs — from charging to parking — in one smooth experience
-                        </ThemedText>
-                    </View>
-
-                    <View style={styles.inputSection}>
-                        <View style={{ marginBottom: 24 }}>
-                            <ThemedText color={Colors.sharkNew} type="labelMedium" style={{ paddingBottom: 4 }}>
-                                Enter Your Mobile Number
-                            </ThemedText>
-                            <View style={styles.phoneInputWrapper}>
-                                <Ionicons name="call-outline" size={20} color="#212121" style={styles.phoneIcon} />
-                                <TextInput
-                                    style={styles.phoneInput}
-                                    value={phoneNumber}
-                                    onChangeText={(text) => setPhoneNumber(text)}
-                                    placeholder="Enter mobile number"
-                                    keyboardType="phone-pad"
-                                    maxLength={10}
-                                    placeholderTextColor={Colors.nutralsBlack}
-                                />
-                            </View>
-                        </View>
-                        <Button
-                            title="Continue"
-                            variant="touchable"
-                            activeOpacity={0.9}
-                            onPress={sendOtp}
-                            isLoading={isLoading} />
-                    </View>
-
-                    <View style={styles.dividerContainer}>
-                        <View style={styles.dividerLine} />
-                        <ThemedText type="labelMedium">Or Continue With</ThemedText>
-                        <View style={styles.dividerLine} />
-                    </View>
-
-                    <View style={styles.socialContainer}>
-                        <TouchableOpacity style={styles.socialButton} activeOpacity={0.7}>
-                            <Ionicons name="logo-facebook" size={24} color="#1877F2" />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} >
-                            <Ionicons name="logo-google" size={24} color="#4285F4" />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} >
-                            <Ionicons name="logo-apple" size={24} color="#000" />
-                        </TouchableOpacity>
-                    </View>
+            <View style={styles.content}>
+                <View style={{ marginBottom: 32 }}>
+                    <ThemedText type="title" fontVariant="bold" style={{ marginBottom: 12 }}>
+                        One App. Total Control.
+                    </ThemedText>
+                    <ThemedText color={Colors.mako} type="defaultSemiBold">
+                        Manage all your EV needs — from charging to parking — in one smooth experience
+                    </ThemedText>
                 </View>
-            }
+
+                <View style={styles.inputSection}>
+                    <View style={{ marginBottom: 24 }}>
+                        <ThemedText color={Colors.sharkNew} type="labelMedium" style={{ paddingBottom: 4 }}>
+                            Enter Your Mobile Number
+                        </ThemedText>
+                        <View style={styles.phoneInputWrapper}>
+                            <Ionicons name="call-outline" size={20} color="#212121" style={styles.phoneIcon} />
+                            <TextInput
+                                style={styles.phoneInput}
+                                value={phoneNumber}
+                                onChangeText={(text) => setPhoneNumber(text)}
+                                placeholder="Enter mobile number"
+                                keyboardType="phone-pad"
+                                maxLength={10}
+                                placeholderTextColor={Colors.nutralsBlack}
+                            />
+                        </View>
+                    </View>
+                    <Button
+                        title="Continue"
+                        variant="touchable"
+                        activeOpacity={0.9}
+                        onPress={sendOtp}
+                        isLoading={isLoading} />
+                </View>
+
+                <View style={styles.dividerContainer}>
+                    <View style={styles.dividerLine} />
+                    <ThemedText type="labelMedium">Or Continue With</ThemedText>
+                    <View style={styles.dividerLine} />
+                </View>
+
+                <View style={styles.socialContainer}>
+                    <TouchableOpacity style={styles.socialButton} activeOpacity={0.7}>
+                        <Ionicons name="logo-facebook" size={24} color="#1877F2" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} >
+                        <Ionicons name="logo-google" size={24} color="#4285F4" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.socialButton} activeOpacity={0.7} >
+                        <Ionicons name="logo-apple" size={24} color="#000" />
+                    </TouchableOpacity>
+                </View>
+            </View>
         </ScreenWrapper>
     );
 }

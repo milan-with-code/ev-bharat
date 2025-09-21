@@ -88,9 +88,9 @@ export default function MyProfile() {
                     showsVerticalScrollIndicator={false}
                 >
                     <View style={styles.avatarWrapper}>
-                        {user?.profilePictureUrl && (
+                        {user?.profilePictureUrl || profilePictureUrl && (
                             <Image
-                                source={{ uri: profilePictureUrl || user.profilePictureUrl }}
+                                source={{ uri: profilePictureUrl || user?.profilePictureUrl }}
                                 style={styles.avatar}
                             />
                         )}

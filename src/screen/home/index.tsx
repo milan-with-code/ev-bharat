@@ -1,7 +1,8 @@
-import { View, ScrollView, StyleSheet } from "react-native";
 import React from "react";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { Link } from "expo-router";
 import { ThemedText } from "@/components/ThemedText";
-import { AntDesign, Feather, FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Separator } from "@/components/Separator";
 import { Colors } from "@/constants/Colors";
 import Windy from "@assets/svg/windy.svg";
@@ -12,7 +13,7 @@ import OffersForYou from "./components/offers-for-you";
 import NearBySection from "./components/near-by-section";
 import Card from "@/components/Card";
 import ScreenWrapper from "@/components/ScreenWrapper";
-import { Link } from "expo-router";
+import AppHeader from "./components/app-header";
 
 const InfoRow = ({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle: string }) => (
   <View style={styles.row}>
@@ -41,6 +42,7 @@ const StatCard = ({ icon, label, children }: { icon: React.ReactNode; label: str
 export default function HomeLayout() {
   return (
     <ScreenWrapper>
+      <AppHeader />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Card>
           <View>
@@ -80,7 +82,6 @@ export default function HomeLayout() {
             </Link>
           </View>
         </Card>
-
         <View style={styles.statsRow}>
           <StatCard icon={<Feather name="battery" size={20} color="white" />} label="Battery">
             <ProgressBar progress={72} />
@@ -93,7 +94,6 @@ export default function HomeLayout() {
             </ThemedText>
           </StatCard>
         </View>
-
         <UpcomingBooking />
         <OffersForYou />
         <NearBySection />
