@@ -89,3 +89,43 @@ export const modalData: ModalDataType[] = [
         image: "",
     },
 ];
+
+export interface Transaction {
+    id: string;
+    title: string;
+    date: string;
+    amount: string;
+    time: string;
+    type: "Topup" | "Charging";
+    picture?: string | null;
+}
+
+export const transactionHistory: Transaction[] = [
+    {
+        id: "1",
+        title: "Top Up Wallet",
+        date: "July 14, 2005",
+        amount: "$10.0",
+        time: "10:30 PM",
+        type: "Topup",
+        picture: null,
+    },
+    {
+        id: "2",
+        title: "EV Charging – Green Mall Station",
+        date: "July 14, 2005",
+        amount: "$12.8",
+        time: "10:30 PM",
+        type: "Charging",
+        picture: null,
+    },
+    {
+        id: "3",
+        title: "EV Charging – Jio EV Hub",
+        date: "July 14, 2005",
+        amount: "$11.1",
+        time: "10:30 PM",
+        type: "Charging",
+        picture: null,
+    },
+];

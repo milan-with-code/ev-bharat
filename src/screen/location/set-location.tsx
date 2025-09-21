@@ -1,11 +1,11 @@
 import { View, StyleSheet } from "react-native";
+import { router } from "expo-router";
 import BackButton from "@/components/BackButton";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import LocationGroup from "@assets/svg/LocationGroup.svg";
 import { Button } from "@/components/Button";
-import { useRouter } from "expo-router";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 import { useLocationStore } from "@/store/useLocationStore";
 import { useAuthStore } from "@/utils/authStore";
@@ -14,7 +14,6 @@ export default function SetLocation() {
     const { loading, getCurrentLocation } = useCurrentLocation();
     const { setLocation } = useLocationStore()
     const { completedLocationSetup } = useAuthStore()
-    const router = useRouter();
 
     async function handleGetLocation() {
         const location = await getCurrentLocation();

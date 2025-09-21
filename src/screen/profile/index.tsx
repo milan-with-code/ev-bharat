@@ -33,7 +33,7 @@ const profileSections: ProfileSection[] = [
   {
     icon: <AntDesign name="car" size={18} color="black" />,
     title: "My Vehicle",
-    route: "",
+    route: "(main)/(extra)/add-vehicle",
   },
   {
     icon: <MaterialIcons name="local-offer" size={18} color="black" />,
@@ -130,7 +130,7 @@ export default function Profile() {
             keyExtractor={(_, index) => index.toString()}
             scrollEnabled={false}
             renderItem={({ item }) => (
-              <Pressable>
+              <Pressable onPress={() => item.route && router.push(item.route)}>
                 <View style={styles.optionRow}>
                   <View style={styles.optionIcon}>{item.icon}</View>
                   <ThemedText type="default">{item.title}</ThemedText>

@@ -45,7 +45,7 @@ const ProgressBar = ({ progress = 72 }) => {
         />
       </Svg>
       <View style={styles.textWrapper}>
-        <ThemedText type="defaultSemiBold" fontVariant="semiBold">{progress}%</ThemedText>
+        <ThemedText type="defaultSemiBold" fontVariant="semiBold" color="white" >{progress}%</ThemedText>
       </View>
     </View>
   );

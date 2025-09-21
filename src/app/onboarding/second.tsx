@@ -21,7 +21,9 @@ export default function Page() {
 
     return (
         <View style={styles.container}>
-            <Image source="https://github.com/milan-with-code/ev-bharat/blob/feature/auth-flow/assets/Onboarding2.png?raw=true" style={styles.backgroundImage} cachePolicy="memory-disk" contentFit="cover" />
+            <Image
+                source={{ uri: "https://github.com/milan-with-code/ev-bharat/blob/feature/onboarding-auth-flow/assets/Onboarding2.png?raw=true" }}
+                style={styles.backgroundImage} cachePolicy="memory-disk" contentFit="cover" />
 
             <View style={styles.skipButtonContainer}>
                 <Button

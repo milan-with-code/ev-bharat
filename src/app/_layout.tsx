@@ -11,6 +11,7 @@ import {
     useFonts as useGoogleFonts
 } from "@expo-google-fonts/outfit";
 import { StatusBar } from "expo-status-bar";
+import { ToastContainer } from "@/components/ui/Toast";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,6 +52,7 @@ export default function RootLayout() {
     return (
         <SafeAreaProvider>
             <StatusBar style="light" />
+            <ToastContainer />
             <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Protected guard={isOnboarding}>
                     <Stack.Screen name="onboarding" />

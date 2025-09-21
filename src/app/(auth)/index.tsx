@@ -1,15 +1,56 @@
+import { useState } from "react";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
 import { Button } from "@/components/Button";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { ThemedText } from "@/components/ThemedText";
+import { useToastStore } from "@/components/ui/Toast";
 import { Colors } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { useState } from "react";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function PhoneAuthentication() {
     const router = useRouter();
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const addToast = useToastStore((state) => state.addToast);
+
+    const sendOtp = async () => {
+        if (!phoneNumber.length) {
+            addToast({ message: "Please enter phone number", type: "error" });
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/send-otp`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ phoneNumber: `+91${phoneNumber}` }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) throw new Error(data.message || "Failed to send OTP");
+
+            const sessionInfo = data.sessionInfo;
+            addToast({ message: "OTP sent successfully!", type: "success" });
+
+            router.push({
+                pathname: "(auth)/otp-verification",
+                params: { sessionInfo, phoneNumber },
+            });
+        } catch (err: any) {
+            console.error(err);
+            alert(err.message || "Failed to send OTP");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
 
     return (
         <ScreenWrapper>
@@ -41,7 +82,12 @@ export default function PhoneAuthentication() {
                             />
                         </View>
                     </View>
-                    <Button title="Continue" variant="touchable" activeOpacity={0.9} onPress={() => router.push("(auth)/otp-verification")} />
+                    <Button
+                        title="Continue"
+                        variant="touchable"
+                        activeOpacity={0.9}
+                        onPress={sendOtp}
+                        isLoading={isLoading} />
                 </View>
 
                 <View style={styles.dividerContainer}>
