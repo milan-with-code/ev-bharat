@@ -1,36 +1,24 @@
 import { Colors } from "@/constants/Colors";
 import React from "react";
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps, View, ViewProps, ViewStyle } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-interface CommonProps {
+interface CardProps {
   children: React.ReactNode;
-  style?: ViewStyle | ViewStyle[];
+  style?: object;
   width?: number | string;
   padding?: number;
-  variant?: "view" | "touchable";
 }
-
-type CardProps = CommonProps & ViewProps & TouchableOpacityProps;
 
 export default function Card({
   children,
   style,
   width = "100%",
-  variant = "view",
   padding = 16,
-  ...rest
 }: CardProps) {
-  const Component = variant === "touchable" ? TouchableOpacity : View;
-  const cardStyle: ViewStyle = {
-    width: width as ViewStyle["width"],
-    padding,
-  };
   return (
-    <Component
-      style={[styles.container, cardStyle, style]} {...rest}
-      {...rest}>
+    <View style={[styles.container, style, { width, padding }]}>
       {children}
-    </Component>
+    </View>
   );
 }
 
