@@ -23,7 +23,7 @@ export default function WalletLayout() {
       <BackButton textOnly text="Wallet" textStyle={styles.headerText} />
       <View style={styles.container}>
         <View style={styles.balanceCard}>
-          <Image source={Frame} style={styles.frameImage} />
+          <Image source={Frame} style={styles.frameImage} contentFit="contain" />
           <View style={styles.balanceContent}>
             <Text style={styles.balanceLabel}>Your balance</Text>
             <View style={styles.balanceRow}>
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
   frameImage: {
     width: "100%",
     height: "100%",
-    resizeMode: "contain",
   },
   balanceContent: {
     position: "absolute",

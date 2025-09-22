@@ -129,3 +129,33 @@ export const transactionHistory: Transaction[] = [
         picture: null,
     },
 ];
+
+
+export const filterStation = ["All", "EV Charging", "Parking", "Nearest"]
+export interface NearByStationType {
+    stationName: string,
+    stationAddress: string,
+    slot: string,
+    stationType: "EV Charging" | "Parking" | "EV Charging + Parking",
+    stationRate: string,
+    stationImage: string
+}
+
+export const nearByStation: NearByStationType[] = [
+    {
+        stationName: "Tata Power Station",
+        stationAddress: "5th Block, Koramangala, 1KM Away",
+        slot: "4 Available",
+        stationType: "EV Charging",
+        stationRate: "18$",
+        stationImage: "https://plus.unsplash.com/premium_photo-1715639312136-56a01f236440?q=80&w=1157&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        stationName: "Orion Mall Parking",
+        stationAddress: "Rajajinagar New Bengaluru , 1.0 KM Away",
+        slot: "8 Available",
+        stationType: "Parking",
+        stationRate: "18$",
+        stationImage: "https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=1167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+]

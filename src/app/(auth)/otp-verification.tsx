@@ -10,10 +10,10 @@ import { ThemedText } from "@/components/ThemedText";
 import { Colors } from "@/constants/Colors";
 import OTPInput from "@/screen/auth/components/OTPInput";
 
-import { auth } from "@/config/firebase";
 import { useToastStore } from "@/components/ui/Toast";
 import { useAuthStore } from "@/utils/authStore";
 import { useUserStore } from "@/store/useUserStore";
+import { auth } from "@/services/firebase";
 
 export default function Page() {
     const [otp, setOtp] = useState("");
