@@ -35,8 +35,8 @@ export default function AddVehicle() {
                             style={{
                                 width: "100%",
                                 height: "100%",
-                                resizeMode: "cover",
                             }}
+                            contentFit="cover"
                         />
                     </View>
                     <View style={{ paddingTop: 40, paddingBottom: 16 }}>

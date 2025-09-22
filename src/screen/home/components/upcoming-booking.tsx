@@ -1,13 +1,13 @@
 import Card from "@/components/Card";
 import { ThemedText } from "@/components/ThemedText";
 import { Link } from "expo-router";
-import { Pressable, View } from "react-native";
-import Bold from "@assets/svg/bold.svg";
+import { View } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { Separator } from "@/components/Separator";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Pump from "@assets/svg/pump.svg";
 import { Image } from "expo-image";
+import DirectionButton from "@/components/DirectionButton";
 
 export default function UpcomingBooking() {
   return (
@@ -55,18 +55,7 @@ export default function UpcomingBooking() {
               MG Road Near Forum Mall, 850m Away
             </ThemedText>
           </View>
-          <Pressable
-            style={{
-              borderRadius: 50,
-              backgroundColor: Colors.primaryTransparent,
-              height: 40,
-              width: 40,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Bold />
-          </Pressable>
+          <DirectionButton size={40} />
         </View>
         <Separator orientation="horizontal" style={{ marginVertical: 8 }} />
         <View

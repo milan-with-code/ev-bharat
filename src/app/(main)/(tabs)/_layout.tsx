@@ -1,11 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { Tabs } from "expo-router";
-import { Platform } from "react-native";
-import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-
-// import your SVGs as React components
-import HomeIcon from "@assets/svg/home-2.svg";
-import MapIcon from "@assets/svg/map.svg";
+import { TabBarIcon } from "@/components/TabBarIcon";
 
 export default function TabsLayout() {
     return (
@@ -27,8 +22,12 @@ export default function TabsLayout() {
                 name="home"
                 options={{
                     title: "Home",
-                    tabBarIcon: ({ color }) => (
-                        <HomeIcon width={24} height={24} fill={color} />
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon
+                            focused={focused}
+                            activeUri="https://i.ibb.co/bMKWsHPS/home-2.png"
+                            inactiveUri="https://i.ibb.co/bj52YxF4/home-2.png"
+                        />
                     ),
                 }}
             />
@@ -36,8 +35,12 @@ export default function TabsLayout() {
                 name="map-view"
                 options={{
                     title: "Map View",
-                    tabBarIcon: () => (
-                        <MapIcon width={24} height={24} />
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon
+                            focused={focused}
+                            activeUri="https://i.ibb.co/Z65MVQXW/home-2.png"
+                            inactiveUri="https://i.ibb.co/7JkdBXPx/home-2.png"
+                        />
                     ),
                 }}
             />
@@ -45,8 +48,12 @@ export default function TabsLayout() {
                 name="bookings"
                 options={{
                     title: "Bookings",
-                    tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="ticket-confirmation-outline" size={24} color={color} />
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon
+                            focused={focused}
+                            activeUri={"https://i.ibb.co/gZ4t1P2F/ticket.png"}
+                            inactiveUri={"https://i.ibb.co/C5y5WD9K/ticket.png"} />
+
                     ),
                 }}
             />
@@ -54,8 +61,11 @@ export default function TabsLayout() {
                 name="wallet"
                 options={{
                     title: "Wallet",
-                    tabBarIcon: ({ color }) => (
-                        <Ionicons name="wallet-outline" size={24} color={color} />
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon
+                            focused={focused}
+                            activeUri={"https://i.ibb.co/YBZZ2SjJ/ticket.png"}
+                            inactiveUri={"https://i.ibb.co/zj6GZBY/ticket.png"} />
                     ),
                 }}
             />
@@ -63,8 +73,11 @@ export default function TabsLayout() {
                 name="profile"
                 options={{
                     title: "Profile",
-                    tabBarIcon: ({ color }) => (
-                        <AntDesign name="user" size={24} color={color} />
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon
+                            focused={focused}
+                            activeUri={"https://i.ibb.co/TxhnR88J/user.png"}
+                            inactiveUri={"https://i.ibb.co/Qvt8NkcM/user.png"} />
                     ),
                 }}
             />
