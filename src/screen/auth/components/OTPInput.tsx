@@ -1,4 +1,3 @@
-import { Colors } from "@/constants/Colors";
 import React, { useEffect, useRef, useState } from "react";
 import {
     View,
@@ -10,6 +9,7 @@ import {
     TextInputKeyPressEventData,
     Dimensions,
 } from "react-native";
+import { Colors } from "@/constants/Colors";
 
 type Props = {
     length?: number;

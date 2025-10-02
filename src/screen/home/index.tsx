@@ -1,8 +1,8 @@
 import React from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, Dimensions, ViewStyle } from "react-native";
 import { Link } from "expo-router";
 import { ThemedText } from "@/components/ThemedText";
-import { AntDesign, Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Feather, FontAwesome5 } from "@expo/vector-icons";
 import { Separator } from "@/components/Separator";
 import { Colors } from "@/constants/Colors";
 import Windy from "@assets/svg/windy.svg";
@@ -14,9 +14,15 @@ import NearBySection from "./components/near-by-section";
 import Card from "@/components/Card";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import AppHeader from "./components/app-header";
+import ReferNow from "./components/refer-now-section";
+import { InfoRowProps, StatCardProps } from "@/types";
 
-const InfoRow = ({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle: string }) => (
-  <View style={styles.row}>
+const screenWidth = Dimensions.get("screen").width;
+const infoRowWidth = screenWidth - 32 - 32;
+const infoRowCardWidth = infoRowWidth / 2;
+
+const InfoRow = ({ icon, title, subtitle, width, style }: InfoRowProps) => (
+  <View style={[styles.row, { width }, style]}>
     {icon}
     <View>
       <ThemedText type="defaultSemiBold" fontVariant="semiBold" color={Colors.shark}>
@@ -29,7 +35,7 @@ const InfoRow = ({ icon, title, subtitle }: { icon: React.ReactNode; title: stri
   </View>
 );
 
-const StatCard = ({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) => (
+const StatCard = ({ icon, label, children }: StatCardProps) => (
   <Card width="48%">
     <View style={styles.statHeader}>
       <View style={styles.iconBox}>{icon}</View>
@@ -57,9 +63,9 @@ export default function HomeLayout() {
           <Separator thickness={1} style={{ marginBottom: 16 }} />
 
           <View style={styles.spaceBetween}>
-            <InfoRow icon={<Windy />} title="24°C" subtitle="Partly Cloudy" />
+            <InfoRow icon={<Windy />} title="24°C" subtitle="Partly Cloudy" width={infoRowCardWidth} />
             <Separator orientation="vertical" thickness={1.5} color="#ACB4B9" />
-            <InfoRow icon={<Tree />} title="88/100" subtitle="Eco Score" />
+            <InfoRow icon={<Tree />} title="88/100" subtitle="Eco Score" width={infoRowCardWidth} style={{ justifyContent: "center" }} />
           </View>
 
           <ThemedText type="labelMedium" fontVariant="regular" color={Colors.mako}>
@@ -69,13 +75,13 @@ export default function HomeLayout() {
           <Separator thickness={1} style={styles.separator} />
 
           <View style={styles.linksRow}>
-            <Link href="/(main)/(extra)/switch-vehicle" asChild>
+            <Link href="/(main)/(extra)/switch-vehicle" asChild style={{ width: infoRowCardWidth, textAlign: "center" }}>
               <ThemedText type="defaultSemiBold" fontVariant="semiBold" color={Colors.primary}>
                 Switch Vehicle
               </ThemedText>
             </Link>
             <Separator orientation="vertical" thickness={1.5} color={Colors.primary} />
-            <Link href="/(main)/(extra)/ev-performance" asChild>
+            <Link href="/(main)/(extra)/ev-performance" asChild style={{ width: infoRowCardWidth, textAlign: "center" }}>
               <ThemedText type="defaultSemiBold" fontVariant="semiBold" color={Colors.primary}>
                 EV Performance
               </ThemedText>
@@ -94,9 +100,10 @@ export default function HomeLayout() {
             </ThemedText>
           </StatCard>
         </View>
-        <UpcomingBooking />
+        <UpcomingBooking isHeader />
         <OffersForYou />
         <NearBySection />
+        <ReferNow />
       </ScrollView>
     </ScreenWrapper>
   );

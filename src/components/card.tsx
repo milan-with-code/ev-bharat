@@ -1,24 +1,24 @@
 import { Colors } from "@/constants/Colors";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from "react-native";
 
-interface CardProps {
+interface CardProps extends TouchableOpacityProps {
   children: React.ReactNode;
   style?: object;
   width?: number | string;
   padding?: number;
 }
-
 export default function Card({
   children,
   style,
   width = "100%",
   padding = 16,
+  ...rest
 }: CardProps) {
   return (
-    <View style={[styles.container, style, { width, padding }]}>
+    <TouchableOpacity style={[styles.container, style, { width, padding }]} {...rest} activeOpacity={0.9}>
       {children}
-    </View>
+    </TouchableOpacity>
   );
 }
 

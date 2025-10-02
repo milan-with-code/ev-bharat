@@ -1,11 +1,9 @@
-import { ThemedText } from '@/components/ThemedText';
-import { StyleSheet, View } from 'react-native';
+import BookingLayout from '@/screen/booking';
+import { StyleSheet } from 'react-native';
 
 export default function Page() {
     return (
-        <View style={styles.container}>
-            <ThemedText>Open up Bookings.tsx to start working on your app!</ThemedText>
-        </View>
+        <BookingLayout />
     );
 }
 

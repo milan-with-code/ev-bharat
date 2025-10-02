@@ -22,7 +22,7 @@ export default function Page() {
     return (
         <View style={styles.container}>
             <Image
-                source={{ uri: "https://raw.githubusercontent.com/milan-with-code/ev-bharat/refs/heads/feature/onboarding-auth-flow/assets/Onboarding1.png" }}
+                source={{ uri: "https://i.ibb.co/Mk2zTjVH/Onboarding1.png" }}
                 cachePolicy="memory-disk"
                 style={styles.backgroundImage} contentFit="cover" />
 
