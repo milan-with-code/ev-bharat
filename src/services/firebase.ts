@@ -1,7 +1,7 @@
-import * as SecureStore from "expo-secure-store";
 import { initializeApp } from "firebase/app";
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getReactNativePersistence, initializeAuth } from "firebase/auth";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
     apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -13,22 +13,9 @@ const firebaseConfig = {
     measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const secureStorePersistence = {
-    type: "LOCAL" as const,
-    async getItem(key: string) {
-        return SecureStore.getItemAsync(key);
-    },
-    async setItem(key: string, value: string) {
-        return SecureStore.setItemAsync(key, value);
-    },
-    async removeItem(key: string) {
-        return SecureStore.deleteItemAsync(key);
-    },
-};
-
 const app = initializeApp(firebaseConfig);
 const auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(secureStorePersistence)
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 });
 const db = getFirestore(app);
 

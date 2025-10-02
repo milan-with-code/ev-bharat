@@ -1,7 +1,8 @@
-import { Stack } from "expo-router";
-import { useAuthStore } from "@/utils/authStore";
-import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from "react";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import * as SplashScreen from 'expo-splash-screen';
+import { useAuthStore } from "@/utils/authStore";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
     Outfit_400Regular,
@@ -10,7 +11,6 @@ import {
     Outfit_700Bold,
     useFonts as useGoogleFonts
 } from "@expo-google-fonts/outfit";
-import { StatusBar } from "expo-status-bar";
 import { ToastContainer } from "@/components/ui/Toast";
 
 SplashScreen.preventAutoHideAsync();

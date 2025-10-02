@@ -50,8 +50,6 @@ export default function PhoneAuthentication() {
         }
     };
 
-
-
     return (
         <ScreenWrapper>
             <View style={styles.content}>

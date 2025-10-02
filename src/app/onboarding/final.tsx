@@ -18,7 +18,7 @@ export default function Page() {
     return (
         <View style={styles.container}>
             <Image
-                source={{ uri: "https://github.com/milan-with-code/ev-bharat/blob/feature/onboarding-auth-flow/assets/Onboarding3.png?raw=true" }}
+                source={{ uri: "https://i.ibb.co/Q32TSbZ2/Onboarding3.png" }}
                 cachePolicy="memory-disk"
                 style={styles.backgroundImage}
                 contentFit="cover"

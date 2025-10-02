@@ -35,9 +35,6 @@ export default function NearBySection() {
     <Card
       padding={10}
       style={styles.card}
-      variant="touchable"
-      activeOpacity={0.7}
-      onPress={() => openModal(item)}
     >
       <View style={styles.imageContainer}>
         <Image source={{ uri: item.stationImage }} style={styles.image} contentFit="cover" cachePolicy="memory-disk" />
